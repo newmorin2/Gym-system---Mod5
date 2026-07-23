@@ -27,7 +27,15 @@ trainers, exercises, workout plans, training sessions, and attendance records.
 - Django REST Framework
 - SQLite
 
-
 ---
 
-## Project Structure
+## Install dependencies
+```bash
+pip install -r requirements.txt
+```
+---
+
+## Running the server
+```bash
+python manage.py runserver
+```
