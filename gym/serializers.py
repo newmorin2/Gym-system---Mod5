@@ -25,17 +25,33 @@ class ExerciseSerializer(serializers.ModelSerializer):
         model = Exercise
         fields = "__all__"
 
+class ExerciseNameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Exercise
+        fields = ["id", "name"]
 
 class WorkoutPlanSerializer(serializers.ModelSerializer):
 
-    exercises = serializers.PrimaryKeyRelatedField(
+    exercises = ExerciseNameSerializer(many=True, read_only=True)
+
+    exercise_ids = serializers.PrimaryKeyRelatedField(
         many=True,
-        queryset=Exercise.objects.all()
+        queryset=Exercise.objects.all(),
+        source="exercises",
+        write_only=True
     )
 
     class Meta:
         model = WorkoutPlan
-        fields = "__all__"
+        fields = [
+            "id",
+            "title",
+            "description",
+            "difficulty",
+            "exercises",
+            "exercise_ids",
+        ]
 
 
 class SessionSerializer(serializers.ModelSerializer):
