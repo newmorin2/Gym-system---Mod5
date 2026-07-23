@@ -27,6 +27,12 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
 
 class WorkoutPlanSerializer(serializers.ModelSerializer):
+
+    exercises = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Exercise.objects.all()
+    )
+
     class Meta:
         model = WorkoutPlan
         fields = "__all__"
