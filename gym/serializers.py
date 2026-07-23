@@ -13,12 +13,22 @@ class MemberSerializer(serializers.ModelSerializer):
         model = Member
         fields = "__all__"
 
+class MemberNameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Member
+        fields = ["id", "name"]
 
 class TrainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trainer
         fields = "__all__"
 
+class TrainerNameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Trainer
+        fields = ["id", "name"]
 
 class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,8 +65,32 @@ class WorkoutPlanSerializer(serializers.ModelSerializer):
 
 
 class SessionSerializer(serializers.ModelSerializer):
+
+    member = MemberNameSerializer(read_only=True)
+    trainer = TrainerNameSerializer(read_only=True)
+
+    member_id = serializers.PrimaryKeyRelatedField(
+        queryset=Member.objects.all(),
+        source="member",
+        write_only=True
+    )
+
+    trainer_id = serializers.PrimaryKeyRelatedField(
+        queryset=Trainer.objects.all(),
+        source="trainer",
+        write_only=True
+    )
+
     class Meta:
         model = Session
-        fields = "__all__"
+        fields = [
+            "id",
+            "member",
+            "trainer",
+            "member_id",
+            "trainer_id",
+            "date",
+            "status"
+        ]
 
 
