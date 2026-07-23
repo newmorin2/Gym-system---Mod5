@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 # Create your views here.
 from rest_framework import viewsets
@@ -44,3 +46,13 @@ class SessionViewSet(viewsets.ModelViewSet):
     serializer_class = SessionSerializer
 
 
+@api_view(["GET"])
+def dashboard_stats(request):
+    data = {
+        "members": Member.objects.count(),
+        "trainers": Trainer.objects.count(),
+        "exercises": Exercise.objects.count(),
+        "workout_plans": WorkoutPlan.objects.count(),
+        "sessions": Session.objects.count(),
+    }
+    return Response(data)
