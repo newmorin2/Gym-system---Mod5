@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-jz^_dma+z6mxx#9t0-o)_nrs7hqb91coo==kggz1%$1h@#s(wx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["your-render-domain.onrender.com",
+ALLOWED_HOSTS = ["https://gym-system-mod5.onrender.com",
     "localhost",
     "127.0.0.1"]
 
