@@ -50,3 +50,7 @@ jobs:
       - name: Run migrations
         run: |
           python manage.py migrate
+
+      - name: Build Docker image
+        run: |
+          docker build -t gym-backend .
